@@ -5,27 +5,25 @@ import java.util.List;
 public class Bubblesort {
 
     public List<Integer> sort(List<Integer> currentList){
-        int startIndex = 0;
-        boolean swapped = false;
-        boolean swappedOnce = false;
+        int listSize;
 
         List<Integer> unorderedList = currentList;
+        listSize = unorderedList.size();
 
-        for (int i = startIndex; i < unorderedList.size(); i++ ){
-
-            if (isOrdered(unorderedList, swapped, i)) {
-                i = ++startIndex;
-                swapped = false;
-                swappedOnce = true;
+        for (int i = 0; i < listSize; i++ ){
+            if (isOrdered(listSize, i)) {
+                listSize--;
+                i = 0;
             }
+
             if(!isCompletyIterated(unorderedList, i) &&
                 isCurrentValueGreaterThenNextValue(unorderedList.get(i), unorderedList.get(nextPosition(i)))     ) {
                     unorderedList = swapValues(unorderedList, i);
                     showActualStatus(unorderedList, i);
-                    swapped = true;
-                }
             }
-    return swappedOnce ? sort(unorderedList) : unorderedList;
+        }
+
+    return unorderedList;
     }
 
     private void showActualStatus(List<Integer> unorderedList, int index) {
@@ -43,8 +41,8 @@ public class Bubblesort {
         return unorderedList;
     }
 
-    private boolean isOrdered(List<Integer> list, boolean swapped, int index){
-        return !(nextPosition(index) < list.size()) && swapped;
+    private boolean isOrdered(int listSize, int index){
+        return !(nextPosition(index) < listSize);
     }
 
     private boolean isCompletyIterated(List<Integer> list, int index){
